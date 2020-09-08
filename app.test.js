@@ -14,42 +14,61 @@ const date_start_0 = new Date(2020,8,1,20,45,0);
 const date_start_1 = new Date(2020,8,2,10,30,0);
 const date_start_2 = new Date(2020,8,2,10,0,0);
 
-    test('testing deadline with date_start_0 #0', () => {
-        expect(textEdit('.doc', 'UA', 10, date_start_0)).toBe(date_end_0.toString());
-    });
+    // test('testing deadline with date_start_0 #0', () => {
+    //     expect(textEdit('.doc', 'UA', 10, date_start_0)).toBe(date_end_0.toString());
+    // });
+    //
+    // test('test deadline with date_start_0 #1', () => {
+    //     expect(textEdit('.doc', 'EN', 1000, date_start_0)).toBe(date_end_1.toString());
+    // })
+    //
+    // test('test deadline with date_start_0 #2', () => {
+    //     expect(textEdit('.pdf', 'EN', 500, date_start_0)).toBe(date_end_2.toString());
+    // })
+    //
+    // test('test deadline with date_start_0 #3', () => {
+    //     expect(textEdit('.pdf', 'RU', 12000, date_start_0)).toBe(date_end_3.toString());
+    // })
+    //
+    // test('test deadline with date_start_1 #4', () => {
+    //     expect(textEdit('.doc', 'UA', 120000, date_start_1)).toBe(date_end_4.toString());
+    // })
+    //
+    // test('test deadline with date_start_1 #5', () => {
+    //     expect(textEdit('.doc', 'UA', 120, date_start_1)).toBe(date_end_5.toString());
+    // })
+    //
+    // test('test deadline with date_start_1 #6', () => {
+    //     expect(textEdit('.pdf', 'EN', 1333, date_start_1)).toBe(date_end_6.toString());
+    // })
+    //
+    // test('test deadline with date_start_2 #7', () => {
+    //     expect(textEdit('.docx', 'EN', 333, date_start_2)).toBe(date_end_7.toString());
+    // })
+    //
+    // test('test deadline with date_start_2 #8', () => {
+    //     expect(textEdit('.pdf', 'EN', 2300, date_start_2)).toBe(date_end_8.toString());
+    // })
+    //
+    // test('test deadline with date_start_2 #9', () => {
+    //     expect(textEdit('.docx', 'EN', 2900, date_start_2)).toBe(date_end_9.toString());
+    // })
 
-    test('test deadline with date_start_0 #1', () => {
-        expect(textEdit('.doc', 'EN', 1000, date_start_0)).toBe(date_end_1.toString());
-    })
-
-    test('test deadline with date_start_0 #2', () => {
-        expect(textEdit('.pdf', 'EN', 500, date_start_0)).toBe(date_end_2.toString());
-    })
-
-    test('test deadline with date_start_0 #3', () => {
-        expect(textEdit('.pdf', 'RU', 12000, date_start_0)).toBe(date_end_3.toString());
-    })
-
-    test('test deadline with date_start_1 #4', () => {
-        expect(textEdit('.doc', 'UA', 120000, date_start_1)).toBe(date_end_4.toString());
-    })
-
-    test('test deadline with date_start_1 #5', () => {
-        expect(textEdit('.doc', 'UA', 120, date_start_1)).toBe(date_end_5.toString());
-    })
-
-    test('test deadline with date_start_1 #6', () => {
-        expect(textEdit('.pdf', 'EN', 1333, date_start_1)).toBe(date_end_6.toString());
-    })
-
-    test('test deadline with date_start_2 #7', () => {
-        expect(textEdit('.docx', 'EN', 333, date_start_2)).toBe(date_end_7.toString());
-    })
-
-    test('test deadline with date_start_2 #8', () => {
-        expect(textEdit('.pdf', 'EN', 2300, date_start_2)).toBe(date_end_8.toString());
-    })
-
-    test('test deadline with date_start_2 #9', () => {
-        expect(textEdit('.docx', 'EN', 2900, date_start_2)).toBe(date_end_9.toString());
-    })
+describe('textEdit', () => {
+    test.each`
+    format     | language |   size     | startDate       |   result  
+    ${'.doc'}  | ${'UA'}  |  ${10}     | ${date_start_0} |   ${date_end_0.toString()}
+    ${'.doc'}  | ${'EN'}  |  ${1000}   | ${date_start_0} |   ${date_end_1.toString()}
+    ${'.pdf'}  | ${'EN'}  |  ${500}    | ${date_start_0} |   ${date_end_2.toString()}
+    ${'.pdf'}  | ${'RU'}  |  ${1200}   | ${date_start_0} |   ${date_end_3.toString()}
+    ${'.doc'}  | ${'UA'}  |  ${120000} | ${date_start_1} |   ${date_end_4.toString()}
+    ${'.doc'}  | ${'UA'}  |  ${120}    | ${date_start_1} |   ${date_end_5.toString()}
+    ${'.pdf'}  | ${'EN'}  |  ${1333}   | ${date_start_1} |   ${date_end_6.toString()}
+    ${'.docx'} | ${'EN'}  |  ${333}    | ${date_start_2} |   ${date_end_7.toString()}
+    ${'.pdf'}  | ${'EN'}  |  ${2300}   | ${date_start_2} |   ${date_end_8.toString()}
+    ${'.docx'} | ${'EN'}  |  ${2900}   | ${date_start_2} |   ${date_end_9.toString()}
+    `(
+        'textEdit', ({format, language, size, startDate, result}) => {
+            expect(textEdit(format, language, size, startDate)).toBe(result);
+});
+});
